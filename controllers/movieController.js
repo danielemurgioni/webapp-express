@@ -23,6 +23,7 @@ const show = (req, res) => {
 
     connection.query(movieSql, [id], (err, movieResult) => {
         if (err) { res.status(500).json({ error: "Database query failed" }) }
+        if (movieResult.length === 0) { return res.status(404).json({ error: "Movie Not Found" }) }
         else {
             const movie = movieResult[0]
 
