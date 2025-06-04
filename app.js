@@ -2,6 +2,19 @@ const express = require("express")
 const app = express()
 const port = 3000
 
+//middleware asset statici
+app.use(express.static("public"))
+//middleware parsing body delle richieste
+app.use(express.json())
+
+//import middleware custom
+const notFound = require("./middlewares/notFound")
+const errorsHandler = require("./middlewares/errorsHandler")
+
+//use middleware custom
+app.use(notFound)
+app.use(errorsHandler)
+
 //importo della connessione
 const connection = require("./data/db")
 
