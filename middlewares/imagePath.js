@@ -1,7 +1,6 @@
 const imagePath = (req, res, next) => {
-    req.imagePath = `${req.protocol}://${req.get("host")}/img/movies`
+    req.imagePath = `${req.protocol}://${req.get("host")}/img/movies_cover/`
     next()
-    console.log(req.imagePath)
 }
 
 module.exports = imagePath

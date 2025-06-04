@@ -6,9 +6,20 @@ const index = (req, res) => {
 
     const querySQL = "SELECT * FROM movies"
 
-    connection.query(querySQL, (err, result) => {
+    connection.query(querySQL, (err, moviesResult) => {
         if (err) { res.status(500).json({ error: "Database query failed" }) }
-        else { res.json(result) }
+        else {
+            //sovrascrivo il valore image dell'array movieResult
+            const movies = moviesResult.map((movie) => {
+                const obj = {
+                    ...movie,
+                    image: req.imagePath + movie.image
+                }
+                return obj
+            })
+
+            res.json(movies)
+        }
     })
 }
 
