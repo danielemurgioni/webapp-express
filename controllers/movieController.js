@@ -28,7 +28,11 @@ const show = (req, res) => {
 
     const { id } = req.params
 
-    const movieSql = "SELECT * FROM movies WHERE id = ?"
+    const movieSql = `
+    SELECT movies.*, ROUND(AVG(reviews.vote)) AS average_vote
+    FROM movies 
+    JOIN reviews ON reviews.movie_id = movies.id
+    WHERE movies.id = ?`
 
     const reviewsSql = "SELECT * FROM reviews WHERE movie_id = ?"
 
@@ -43,7 +47,13 @@ const show = (req, res) => {
                 else {
                     movie.reviews = reviewResult
 
-                    res.json(movie)
+                    //sovrascrivo il voto
+                    movie.average_vote = parseInt(movie.average_vote)
+
+                    res.json({
+                        ...movie,
+                        image: req.imagePath + movie.image
+                    })
                 }
             })
         }
