@@ -13,7 +13,10 @@ app.use(express.json())
 //import middleware custom
 const notFound = require("./middlewares/notFound")
 const errorsHandler = require("./middlewares/errorsHandler")
+const imagePath = require("./middlewares/imagePath")
 
+//middleware custom imagePath
+app.use(imagePath)
 
 //rotta madre
 app.get("/", (req, res) => {
@@ -22,7 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/movies", moviesRouter)
 
-//use middleware custom
+//middleware custom di errore
 app.use(notFound)
 app.use(errorsHandler)
 
