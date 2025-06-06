@@ -2,8 +2,14 @@ const express = require("express")
 const app = express()
 const port = 3000
 
+//importo CORS (per accettare le richieste dal frontend)
+const cors = require("cors")
+
 //importo il router
 const moviesRouter = require("./routers/movieRouter")
+
+//middleware CORS
+app.use(cors({ origin: process.env.FE_APP }))
 
 //middleware asset statici
 app.use(express.static("public"))
